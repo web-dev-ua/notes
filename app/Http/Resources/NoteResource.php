@@ -16,10 +16,10 @@ class NoteResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'    => $this->id,
-            'title' => $this->title,
-            'text'  => $this->text,
-            'image' => $this->getFirstMediaUrl(Note::MEDIA_IMAGE),
+            'id'        => $this->id,
+            'title'     => $this->title,
+            'text'      => $this->text,
+            'image_url' => $this->getFirstMediaUrl(Note::MEDIA_IMAGE),
         ];
     }
 }

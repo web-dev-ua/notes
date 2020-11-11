@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\NoteRequest;
+use App\Http\Resources\NoteCollection;
 use App\Http\Resources\NoteResource;
 use App\Models\Note;
 use Illuminate\Http\Response;
@@ -13,7 +14,7 @@ class NoteController extends Controller
     {
         $notes = Note::orderBy('id', 'desc')->paginate(9);
 
-        return response(NoteResource::collection($notes), Response::HTTP_OK);
+        return response(new NoteCollection($notes), Response::HTTP_OK);
     }
 
     public function store(NoteRequest $request)

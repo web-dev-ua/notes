@@ -1,11 +1,15 @@
 import colors from 'vuetify/es5/util/colors'
 
-const { join } = require('path');
-const { copySync, removeSync } = require('fs-extra');
+require('dotenv').config()
+const { join } = require('path')
+const { copySync, removeSync } = require('fs-extra')
 
 export default {
   srcDir: __dirname,
 
+  env: {
+    apiUrl: process.env.API_URL || process.env.APP_URL + '/api'
+  },
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -14,7 +18,7 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      { hid: 'description', name: 'description', content: 'Notes' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -27,6 +31,8 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
+    '~/plugins/axios',
+    { src: '~/plugins/dialog', ssr: false }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -37,13 +43,13 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify',
+    '@nuxtjs/vuetify'
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
+    '@nuxtjs/axios'
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
