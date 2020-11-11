@@ -45,7 +45,7 @@
       </v-col>
     </v-row>
 
-    <div class="text-center mt-10">
+    <div v-if="pagination.total_pages > 1" class="text-center mt-10">
       <v-pagination
         :disabled="loading"
         :value="pagination.current_page"
@@ -68,8 +68,13 @@ export default {
   components: {
     NoteForm
   },
-  async asyncData ({ store, query }) {
+  async asyncData ({ store, query, redirect }) {
     const { data } = await store.dispatch('notes/index', query)
+
+    if (query.page && query.page > data.pagination.total_pages) {
+      redirect('/')
+    }
+
     return {
       notes: data.data,
       pagination: data.pagination
